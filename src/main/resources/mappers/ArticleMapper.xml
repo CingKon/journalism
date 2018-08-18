@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.journalism.dao.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.journalism.pojo.Article">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="anthology_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sub_title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="publish_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="author_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="author_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="text" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="format" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sub_images" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="type_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, anthology_id, title, sub_title, publish_time, author_id, author_name, text, format,
+    sub_images, type_id, status, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from journalism_article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from journalism_article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.journalism.pojo.Article">
+    insert into journalism_article (id, anthology_id, title, 
+      sub_title, publish_time, author_id,
+      author_name, text, format, 
+      sub_images, type_id, status, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{anthologyId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{subTitle,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP}, #{authorId,jdbcType=INTEGER},
+      #{authorName,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{format,jdbcType=VARCHAR}, 
+      #{subImages,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      now(), now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.journalism.pojo.Article">
+    insert into journalism_article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="anthologyId != null">
+        anthology_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="subTitle != null">
+        sub_title,
+      </if>
+      <if test="publishTime != null">
+        publish_time,
+      </if>
+      <if test="authorId != null">
+        author_id,
+      </if>
+      <if test="authorName != null">
+        author_name,
+      </if>
+      <if test="text != null">
+        text,
+      </if>
+      <if test="format != null">
+        format,
+      </if>
+      <if test="subImages != null">
+        sub_images,
+      </if>
+      <if test="typeId != null">
+        type_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="anthologyId != null">
+        #{anthologyId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subTitle != null">
+        #{subTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null">
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authorId != null">
+        #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="authorName != null">
+        #{authorName,jdbcType=VARCHAR},
+      </if>
+      <if test="text != null">
+        #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="format != null">
+        #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="subImages != null">
+        #{subImages,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null">
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="updateTime != null">
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.journalism.pojo.Article">
+    update journalism_article
+    <set>
+      <if test="anthologyId != null">
+        anthology_id = #{anthologyId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subTitle != null">
+        sub_title = #{subTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null">
+        publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authorId != null">
+        author_id = #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="authorName != null">
+        author_name = #{authorName,jdbcType=VARCHAR},
+      </if>
+      <if test="text != null">
+        text = #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="format != null">
+        format = #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="subImages != null">
+        sub_images = #{subImages,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null">
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = now(),
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.journalism.pojo.Article">
+    update journalism_article
+    set anthology_id = #{anthologyId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      sub_title = #{subTitle,jdbcType=VARCHAR},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      author_id = #{authorId,jdbcType=INTEGER},
+      author_name = #{authorName,jdbcType=VARCHAR},
+      text = #{text,jdbcType=VARCHAR},
+      format = #{format,jdbcType=VARCHAR},
+      sub_images = #{subImages,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = now()
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updatePublishTime" parameterType="int">
+    update journalism_article
+    set publish_time = now()
+    where id = #{articleId}
+  </update>
+
+  <select id="getArticleListByAuthorIdAndAnthologyId" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List"/>
+    from journalism_article
+    where author_id = #{authorId}
+    and anthology_id = #{anthologyId}
+  </select>
+
+  <select id="getArticleListByAuthorId" resultMap="BaseResultMap" parameterType="integer">
+    select
+    <include refid="Base_Column_List"/>
+    from journalism_article
+    where author_id = #{authorId}
+  </select>
+
+  <select id="getAllList" resultMap="BaseResultMap" parameterType="integer">
+    select
+    <include refid="Base_Column_List"/>
+    from journalism_article
+    where status = #{status}
+  </select>
+
+  <select id="getArticleByTypeId" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List"/>
+    from journalism_article
+    where type_id = #{typeId}
+    and status = #{status}
+  </select>
+
+  <select id="getCheckList" resultMap="BaseResultMap" parameterType="int">
+    select
+    <include refid="Base_Column_List"/>
+    from journalism_article
+    where status = #{status}
+  </select>
+
+  <delete id="deleteByAuthorIdAndArticleId" parameterType="map">
+    delete
+    from journalism_article
+    where author_id = #{authorId}
+    and id = #{articleId}
+  </delete>
+</mapper>
